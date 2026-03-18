@@ -92,7 +92,7 @@ jobs:
             framework: net8.0
             sdk: 8.0.x
             runtime: -x64
-            codecov: false
+            codecov: true
           - os: macos-26
             framework: net8.0
             sdk: 8.0.x
@@ -207,6 +207,13 @@ jobs:
         env:
           SIXLABORS_TESTING_PREVIEW: True
           XUNIT_PATH: .\tests\ImageSharp.Tests # Required for xunit
+
+      - name: Qlty Coverage Upload
+        if: matrix.options.codecov == true
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: tests/ImageSharp.Tests/TestResults/**/coverage.info
 
       - name: Export Failed Output
         uses: actions/upload-artifact@v7

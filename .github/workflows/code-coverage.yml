@@ -98,3 +98,10 @@ jobs:
         with:
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Qlty Coverage Upload
+        if: matrix.options.codecov == true
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: tests/ImageSharp.Tests/TestResults/**/coverage.info
