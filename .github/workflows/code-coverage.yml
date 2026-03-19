@@ -1,6 +1,12 @@
 name: CodeCoverage
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   schedule:
     # 2AM every Tuesday/Thursday
     - cron: "0 2 * * 2,4"
@@ -92,9 +98,8 @@ jobs:
           name: actual_output_${{ runner.os }}_${{ matrix.options.framework }}${{ matrix.options.runtime }}.zip
           path: tests/Images/ActualOutput/
 
-      - name: Codecov Update
-        uses: codecov/codecov-action@v5
-        if: matrix.options.codecov == true && startsWith(github.repository, 'SixLabors')
+      - name: Upload coverage to Qlty
+        uses: qltysh/qlty-action/coverage@v2
         with:
-          flags: unittests
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+          files: tests/ImageSharp.Tests/TestResults/*/coverage.info
