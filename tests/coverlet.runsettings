@@ -10,7 +10,7 @@
                 <Configuration>
                     <Format>lcov</Format>
                     <Include>[SixLabors.*]*</Include>
-                    <UseSourceLink>true</UseSourceLink>
+                    <UseSourceLink>false</UseSourceLink>
                 </Configuration>
             </DataCollector>
         </DataCollectors>
